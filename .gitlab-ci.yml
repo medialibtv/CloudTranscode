@@ -15,7 +15,6 @@ build:
   stage: build
   script:
   - docker build --pull --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg PIPELINE_ID="${PIPELINE_ID}" --build-arg VCS_REF="${VCS_REF}" -t $CI_REGISTRY_IMAGE .
-  - docker push $CI_REGISTRY_IMAGE
   - docker tag $CI_REGISTRY_IMAGE $CI_REGISTRY_IMAGE:develop
   - docker push $CI_REGISTRY_IMAGE:develop
   only:
@@ -26,7 +25,5 @@ build-latest:
   script:
   - docker build --pull --build-arg BUILD_DATE="${BUILD_DATE}" --build-arg PIPELINE_ID="${PIPELINE_ID}" --build-arg VCS_REF="${VCS_REF}" -t $CI_REGISTRY_IMAGE .
   - docker push $CI_REGISTRY_IMAGE
-  - docker tag $CI_REGISTRY_IMAGE $CI_REGISTRY_IMAGE:latest
-  - docker push $CI_REGISTRY_IMAGE:latest
   only:
   - master
