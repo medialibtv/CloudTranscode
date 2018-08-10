@@ -620,8 +620,8 @@ class VideoTranscoder extends BasicTranscoder
     // Extract Metadata from ffprobe
     private function _extractFileInfo($metadata) {
 
-        $videoStreams;
-        $audioStreams;
+        $videoStreams = null;
+        $audioStreams = null;
 
         foreach ($metadata->streams as $key => $value) {
             if ($value->codec_type === 'video') {
