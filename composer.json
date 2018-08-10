@@ -2,6 +2,7 @@
     "require": {
         "aws/aws-sdk-php": "3.*",
         "justinrainbow/json-schema": "~1.3",
-        "bfansports/cloud-processing-engine-sdk": "dev-master"
+        "bfansports/cloud-processing-engine-sdk": "dev-master",
+        "ext-json": "*"
     }
 }
