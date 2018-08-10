@@ -42,14 +42,26 @@ if (!isset($options['force']) &&
     exit(0);
 }
 
-# Check if preper env vars are setup
-if (!($region = getenv("AWS_DEFAULT_REGION")))
-    throw new \SA\CpeSdk\CpeException("Set 'AWS_DEFAULT_REGION' environment variable!");
+if (!($region = getenv("AWS_STORAGE_REGION")))
+    throw new CpeSdk\CpeException("Set 'AWS_STORAGE_REGION' environment variable!");
 
-// Get S3 client
+$endpoint = getenv("AWS_STORAGE_ENDPOINT");
+
+if (!($accessKeyId = getenv("AWS_STORAGE_ACCESS_KEY_ID")))
+    throw new CpeSdk\CpeException("Set 'AWS_STORAGE_ACCESS_KEY_ID' environment variable!");
+
+if (!($accessSecret = getenv("AWS_STORAGE_SECRET_ACCESS_KEY")))
+    throw new CpeSdk\CpeException("Set 'AWS_STORAGE_SECRET_ACCESS_KEY' environment variable!");
+
 $s3 = new \Aws\S3\S3Client([
-    'version' => 'latest',
-    'region'  => $region
+    "version" => "latest",
+    "region"  => $region,
+    "credentials" => [
+        "key" => $accessKeyId,
+        "secret" => $accessSecret
+    ],
+    "use_path_style_endpoint" => $endpoint ? true : false,
+    "endpoint" => $endpoint
 ]);
 
 // Download and Save object to a local file.
